@@ -24,7 +24,7 @@ class Paddle extends FlxSprite
         else if (playerNo == 2)
             this.controls = ['up' => [FlxKey.UP], 'down' => [FlxKey.DOWN], 'boost' => [FlxKey.SLASH]];
 
-        // this.immovable = true;
+        this.immovable = true;
         this.makeGraphic(this.pWidth, this.pHeight, FlxColor.WHITE);
     }
 
@@ -40,8 +40,8 @@ class Paddle extends FlxSprite
         var up:Bool = false;
         var down:Bool = false;
 
-        up = FlxG.keys.anyPressed(this.controls['up']);
-        down = FlxG.keys.anyPressed(this.controls['down']);
+        up = FlxG.keys.anyPressed(this.controls['up']) && (this.y > 0);
+        down = FlxG.keys.anyPressed(this.controls['down']) && (this.y + this.pHeight < FlxG.height);
 
         if (up) {
             this.velocity.y = -this.minVelocity;

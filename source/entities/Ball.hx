@@ -7,7 +7,7 @@ import flixel.FlxG;
 
 class Ball extends FlxSprite
 {
-    private var minVelocity:Float = 200;
+    private var minVelocity:Float = 50;
 
     private var bWidth:Int;
     private var bHeight:Int;

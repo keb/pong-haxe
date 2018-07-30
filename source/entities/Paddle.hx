@@ -1,6 +1,7 @@
 package source.entities;
 
 import flixel.FlxSprite;
+import flixel.FlxObject;
 import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
 import flixel.FlxG;
@@ -19,6 +20,8 @@ class Paddle extends FlxSprite
         this.pWidth = pWidth;
         this.pHeight = pHeight;
 
+        this.allowCollisions = FlxObject.LEFT | FlxObject.RIGHT;
+
         if (playerNo == 1)
             this.controls = ['up' => [FlxKey.W], 'down' => [FlxKey.S], 'boost' => [FlxKey.B]];
         else if (playerNo == 2)
@@ -32,6 +35,7 @@ class Paddle extends FlxSprite
     {
         movementAction();
         boostAbility();
+
         super.update(elapsed);
     }
 
@@ -43,16 +47,10 @@ class Paddle extends FlxSprite
         up = FlxG.keys.anyPressed(this.controls['up']) && (this.y > 0);
         down = FlxG.keys.anyPressed(this.controls['down']) && (this.y + this.pHeight < FlxG.height);
 
-        if (up) {
-            this.velocity.y = -this.minVelocity;
-        } else if (down) {
-            this.velocity.y = this.minVelocity;
-        }
+        if (up) this.velocity.y = -this.minVelocity;
+        else if (down) this.velocity.y = this.minVelocity;
 
-        if ((up && down) || (!up && !down)) {
-            this.velocity.y = 0;
-            this.acceleration.y = 0;
-        }
+        if ((up && down) || (!up && !down)) this.velocity.y = 0;
     }
 
     private function boostAbility():Void
